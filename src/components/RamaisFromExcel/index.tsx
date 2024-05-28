@@ -1,43 +1,57 @@
 import React, { useState, useEffect } from "react";
-import * as XLSX from "xlsx";
 import EmployeeCard from "../EmployeeCard";
 import SearchBar from "../SearchBar";
 import { Container } from "./styles";
 import { Employee } from "../../types";
+import * as XLSX from "xlsx";
 
-const RamaisFromXLSX: React.FC = () => {
+const RamaisFromExcel: React.FC = () => {
   const [data, setData] = useState<Employee[]>([]);
   const [filteredData, setFilteredData] = useState<Employee[]>([]);
 
   useEffect(() => {
-    const readXLSX = async () => {
-      try {
-        const response = await fetch("../../assets/planilha_de_ramais.xlsx");
-        const arrayBuffer = await response.arrayBuffer();
-        const workbook = XLSX.read(arrayBuffer, { type: "array" });
-        const sheetName = workbook.SheetNames[0];
-        const sheet = workbook.Sheets[sheetName];
-        const employeeData: Employee[] = XLSX.utils
-          .sheet_to_json(sheet, { defval: "" })
-          .map((row: any) => {
-            const employee: Employee = {
-              name: row["name"]?.trim(),
-              ramal: row["ramal"]?.trim(),
-              setor: row["setor"]?.trim(),
-              cargo: row["cargo"]?.trim(),
-              email: row["email"]?.trim(),
-              foto: row["foto"]?.trim(),
-            };
-            return employee;
+    // Função para ler os dados da planilha
+    const readExcel = async () => {
+      const promise = new Promise<Employee[]>((resolve, reject) => {
+        fetch("../../assets/planilha_de_ramais.xlsx") // Requisição para carregar o arquivo Excel
+          .then((response) => response.arrayBuffer())
+          .then((buffer) => {
+            const wb = XLSX.read(buffer, { type: "array" });
+            const wsname = wb.SheetNames[0];
+            const ws = wb.Sheets[wsname];
+            const jsonData = XLSX.utils.sheet_to_json<string[]>(ws, {
+              header: 1,
+            });
+
+            // Mapeia os dados JSON para um array de Employee
+            const employeeData: Employee[] = jsonData.slice(1).map((row) => ({
+              name: row[0],
+              ramal: row[1],
+              setor: row[2],
+              cargo: row[3],
+              email: row[4],
+              foto: row[5],
+            }));
+            resolve(employeeData);
+          })
+          .catch((error) => {
+            console.error("Error fetching file:", error);
+            reject(error);
           });
-        setData(employeeData);
-        setFilteredData(employeeData);
-      } catch (error) {
-        console.error("Error reading XLSX file:", error);
-      }
+      });
+
+      promise
+        .then((data) => {
+          setData(data);
+          setFilteredData(data);
+        })
+        .catch((error) => {
+          console.error("Error processing file:", error);
+        });
     };
 
-    readXLSX();
+    // Ler a planilha quando o componente for montado
+    readExcel();
   }, []);
 
   const handleSearch = (term: string) => {
@@ -55,7 +69,7 @@ const RamaisFromXLSX: React.FC = () => {
       {filteredData.length > 0 ? (
         filteredData.map((employee, index) => (
           <EmployeeCard
-            key={index}
+            key={`${employee.ramal}-${index}`} // Ensure `key` is unique, using `index` as fallback
             name={employee.name}
             ramal={employee.ramal}
             setor={employee.setor}
@@ -65,10 +79,10 @@ const RamaisFromXLSX: React.FC = () => {
           />
         ))
       ) : (
-        <p>No data available</p>
+        <p>No data available</p> // Display message if no data
       )}
     </Container>
   );
 };
 
-export default RamaisFromXLSX;
+export default RamaisFromExcel;
