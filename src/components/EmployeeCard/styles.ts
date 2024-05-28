@@ -22,4 +22,16 @@ export const EmployeeImage = styled.img`
 export const EmployeeInfo = styled.div`
   display: flex;
   flex-direction: column;
+  margin-left: 16px;
+
+  h3 {
+    margin-bottom: 0;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+  span {
+    font-weight: bold;
+  }
 `;

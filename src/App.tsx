@@ -1,12 +1,15 @@
+// App.tsx
 import React from "react";
-import RamaisFromExcel from "./components/RamaisFromExcel";
+import RamaisFromCSV from "../src/components/RamaisFromExcel"; // Corrected import path
 import GlobalStyles from "./GlobalStyles";
+import Footer from "../src/components/footer"; // Corrected import path
 
 const App: React.FC = () => {
   return (
     <>
       <GlobalStyles />
-      <RamaisFromExcel />
+      <RamaisFromCSV />
+      <Footer />
     </>
   );
 };

@@ -24,11 +24,20 @@ const EmployeeCard: React.FC<EmployeeProps> = ({
       <EmployeeImage src={foto} alt={`Foto de ${name}`} />
       <EmployeeInfo>
         <h3>{name}</h3>
-        <p>Ramal: {ramal}</p>
-        <p>Setor: {setor}</p>
-        <p>Cargo: {cargo}</p>
         <p>
-          E-mail: <a href={`mailto:${email}`}>{email}</a>
+          {" "}
+          <span>Ramal:</span> {ramal}
+        </p>
+        <p>
+          {" "}
+          <span>Setor:</span> {setor}
+        </p>
+        <p>
+          {" "}
+          <span>Cargo:</span> {cargo}
+        </p>
+        <p>
+          <span>E-mail:</span> <a href={`mailto:${email}`}>{email}</a>
         </p>
       </EmployeeInfo>
     </EmployeeContainer>
