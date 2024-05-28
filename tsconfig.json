@@ -14,8 +14,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
-    "files": ["assets/planilha_de_ramais.xlsx"]
+    "jsx": "react-jsx"
   },
   "include": ["src"]
 }

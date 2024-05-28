@@ -1,6 +1,5 @@
 import React from "react";
 import { EmployeeContainer, EmployeeInfo, EmployeeImage } from "./styles";
-import { Employee } from "../../types";
 
 interface EmployeeProps {
   name: string;
