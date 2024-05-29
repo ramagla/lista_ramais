@@ -84,7 +84,7 @@ const RamaisFromExcel: React.FC = () => {
           />
         ))
       ) : (
-        <p>Não encontrado...</p>
+        <p>Não encontrado..</p>
       )}
       <Footer />
     </Container>
