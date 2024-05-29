@@ -4,72 +4,77 @@ import SearchBar from "../SearchBar";
 import { Container } from "./styles";
 import { Employee } from "../../types";
 import * as XLSX from "xlsx";
+import Header from "../Header";
+import Footer from "../Footer";
 
 const RamaisFromExcel: React.FC = () => {
   const [data, setData] = useState<Employee[]>([]);
   const [filteredData, setFilteredData] = useState<Employee[]>([]);
 
   useEffect(() => {
-    // Função para ler os dados da planilha
     const readExcel = async () => {
-      const promise = new Promise<Employee[]>((resolve, reject) => {
-        fetch("../../../public/planilha_de_ramais.xlsx")
-          .then((response) => response.arrayBuffer())
-          .then((buffer) => {
-            const wb = XLSX.read(buffer, { type: "array" });
-            const wsname = wb.SheetNames[0];
-            const ws = wb.Sheets[wsname];
-            const jsonData = XLSX.utils.sheet_to_json<string[]>(ws, {
-              header: 1,
-            });
+      try {
+        const response = await fetch("/assets/planilha_de_ramais.xlsx");
+        if (!response.ok) throw new Error("Network response was not ok");
+        const buffer = await response.arrayBuffer();
 
-            // Mapeia os dados JSON para um array de Employee
-            const employeeData: Employee[] = jsonData.slice(1).map((row) => ({
-              name: row[0],
-              ramal: row[1],
-              setor: row[2],
-              cargo: row[3],
-              email: row[4],
-              foto: row[5],
-            }));
-            resolve(employeeData);
-          })
-          .catch((error) => {
-            console.error("Error fetching file:", error);
-            reject(error);
-          });
-      });
+        const wb = XLSX.read(buffer, { type: "array" });
+        const wsname = wb.SheetNames[0];
+        const ws = wb.Sheets[wsname];
+        const jsonData = XLSX.utils.sheet_to_json<string[]>(ws, { header: 1 });
 
-      promise
-        .then((data) => {
-          setData(data);
-          setFilteredData(data);
-        })
-        .catch((error) => {
-          console.error("Error processing file:", error);
-        });
+        if (jsonData.length > 0 && Array.isArray(jsonData[0])) {
+          const employeeData: Employee[] = jsonData.slice(1).map((row) => ({
+            name: row[0],
+            ramal: row[1],
+            setor: row[2],
+            cargo: row[3],
+            email: row[4],
+            foto: row[5],
+          }));
+
+          setData(employeeData);
+          setFilteredData(employeeData);
+        } else {
+          console.error("Invalid data format in the Excel file.");
+        }
+      } catch (error) {
+        console.error("Error fetching or processing file:", error);
+      }
     };
 
-    // Ler a planilha quando o componente for montado
     readExcel();
   }, []);
 
   const handleSearch = (term: string) => {
-    const filtered = data.filter(
-      (employee) =>
-        employee.name.toLowerCase().includes(term.toLowerCase()) ||
-        employee.cargo.toLowerCase().includes(term.toLowerCase())
-    );
+    if (!term) {
+      setFilteredData(data);
+      return;
+    }
+
+    const filtered = data.filter((employee) => {
+      const name = employee.name ? employee.name.toLowerCase() : "";
+      const cargo = employee.cargo ? employee.cargo.toLowerCase() : "";
+      const setor = employee.setor ? employee.setor.toLowerCase() : "";
+
+      return (
+        name.includes(term.toLowerCase()) ||
+        cargo.includes(term.toLowerCase()) ||
+        setor.includes(term.toLowerCase())
+      );
+    });
+
     setFilteredData(filtered);
   };
 
   return (
     <Container>
+      <Header />
       <SearchBar onSearch={handleSearch} />
       {filteredData.length > 0 ? (
         filteredData.map((employee, index) => (
           <EmployeeCard
-            key={`${employee.ramal}-${index}`} // Ensure `key` is unique, using `index` as fallback
+            key={`${employee.ramal}-${index}`}
             name={employee.name}
             ramal={employee.ramal}
             setor={employee.setor}
@@ -79,8 +84,9 @@ const RamaisFromExcel: React.FC = () => {
           />
         ))
       ) : (
-        <p>No data available</p> // Display message if no data
+        <p>Não encontrado</p>
       )}
+      <Footer />
     </Container>
   );
 };

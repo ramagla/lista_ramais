@@ -2,10 +2,10 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
   body {
-    background-image: url("https://i.postimg.cc/cL96Sty6/Home.png");
+    background-color: #14142c ;
     background-size: cover;
     background-repeat: no-repeat;
-    font-family: Arial, sans-serif;
+    font-family: Roboto, sans-serif;
     padding-top: 20px;
   }
 

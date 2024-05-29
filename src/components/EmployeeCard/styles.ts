@@ -8,6 +8,11 @@ export const EmployeeContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 export const EmployeeImage = styled.img`
@@ -17,6 +22,11 @@ export const EmployeeImage = styled.img`
   object-fit: cover;
   object-position: center;
   flex-shrink: 0;
+
+  @media (max-width: 768px) {
+    width: 100px;
+    height: 100px;
+  }
 `;
 
 export const EmployeeInfo = styled.div`
@@ -33,5 +43,11 @@ export const EmployeeInfo = styled.div`
   }
   span {
     font-weight: bold;
+  }
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+    margin-top: 10px;
+    text-align: left;
   }
 `;
