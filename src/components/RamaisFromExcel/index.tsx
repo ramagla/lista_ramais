@@ -13,7 +13,7 @@ const RamaisFromExcel: React.FC = () => {
     // Função para ler os dados da planilha
     const readExcel = async () => {
       const promise = new Promise<Employee[]>((resolve, reject) => {
-        fetch("../../assets/planilha_de_ramais.xlsx") // Requisição para carregar o arquivo Excel
+        fetch("../../../public/planilha_de_ramais.xlsx")
           .then((response) => response.arrayBuffer())
           .then((buffer) => {
             const wb = XLSX.read(buffer, { type: "array" });
