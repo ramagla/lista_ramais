@@ -33,7 +33,7 @@ export const Logo = styled.img`
   }
 `;
 
-export const Version = styled.span`
+export const Version = styled.a`
   font-size: 12px;
   margin-right: 16px;
   margin-bottom: 40px;
@@ -42,5 +42,16 @@ export const Version = styled.span`
   @media (max-width: 768px) {
     margin-bottom: 20px;
     margin-right: 0;
+  }
+`;
+
+export const Link = styled.a`
+  font-size: 12px;
+  text-decoration: none;
+  color: #333;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
   }
 `;
