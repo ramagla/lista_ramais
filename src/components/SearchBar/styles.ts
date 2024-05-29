@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const SearchContainer = styled.div`
   margin-bottom: 20px;
-  width: 340px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center; /* Centraliza os itens horizontalmente */
@@ -12,7 +12,7 @@ export const SearchContainer = styled.div`
 export const SearchInput = styled.input`
   padding: 5px;
   width: 100%;
-  max-width: 250px;
+  max-width: 300px;
   border-radius: 5px;
   border: none;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);

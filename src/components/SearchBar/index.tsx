@@ -9,11 +9,9 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-  };
-
-  const handleSearch = () => {
-    onSearch(searchTerm.trim().toLowerCase());
+    const newSearchTerm = event.target.value.trim().toLowerCase();
+    setSearchTerm(newSearchTerm);
+    onSearch(newSearchTerm);
   };
 
   return (
@@ -24,7 +22,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
         value={searchTerm}
         onChange={handleInputChange}
       />
-      <SearchButton onClick={handleSearch}>Buscar</SearchButton>
+      <SearchButton disabled>Buscar</SearchButton>
     </SearchContainer>
   );
 };
