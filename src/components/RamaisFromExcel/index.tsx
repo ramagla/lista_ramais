@@ -5,7 +5,7 @@ import { Container } from "./styles";
 import { Employee } from "../../types";
 import * as XLSX from "xlsx";
 import Header from "../Header";
-import Footer from "../Footer";
+import Footer from "../Rodape";
 
 const RamaisFromExcel: React.FC = () => {
   const [data, setData] = useState<Employee[]>([]);
