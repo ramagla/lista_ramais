@@ -10,6 +10,12 @@ export const EmployeeContainer = styled.div`
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
   position: relative;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    padding: 12px;
+  }
 `;
 
 export const EmployeeImage = styled.img`
@@ -18,6 +24,16 @@ export const EmployeeImage = styled.img`
   border-radius: 50%;
   object-fit: cover;
   cursor: pointer;
+
+  @media (max-width: 768px) {
+    width: 100px;
+    height: 100px;
+  }
+
+  @media (max-width: 480px) {
+    width: 80px;
+    height: 80px;
+  }
 `;
 
 export const InfoWrapper = styled.div`
@@ -26,6 +42,13 @@ export const InfoWrapper = styled.div`
   flex-grow: 1;
   margin-left: 16px;
   align-items: center;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    margin-left: 0;
+    align-items: center;
+    text-align: center;
+  }
 `;
 
 export const EmployeeInfo = styled.div`
@@ -33,6 +56,10 @@ export const EmployeeInfo = styled.div`
     font-size: 1.5rem;
     margin-bottom: 10px;
     cursor: pointer;
+
+    @media (max-width: 768px) {
+      font-size: 1.2rem;
+    }
   }
 
   p {
@@ -42,6 +69,10 @@ export const EmployeeInfo = styled.div`
     span {
       font-weight: bold;
     }
+
+    @media (max-width: 768px) {
+      font-size: 0.9rem;
+    }
   }
 `;
 
@@ -50,7 +81,12 @@ export const ButtonsWrapper = styled.div`
   flex-direction: column;
   align-items: flex-end;
   gap: 10px;
-  width: 150px; /* Garantindo que ambos os botões tenham a mesma largura */
+  width: 150px;
+
+  @media (max-width: 768px) {
+    align-items: center;
+    width: 100%;
+  }
 `;
 
 export const AddContactButton = styled.button`
@@ -60,13 +96,17 @@ export const AddContactButton = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  width: 100%; /* Para garantir que os botões tenham a mesma largura */
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 
   &:hover {
     background-color: #218838;
+  }
+
+  @media (max-width: 768px) {
+    padding: 6px 12px;
   }
 `;
 
@@ -77,7 +117,7 @@ export const SendEmailButton = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  width: 100%; /* Para garantir que os botões tenham a mesma largura */
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -85,59 +125,68 @@ export const SendEmailButton = styled.button`
   &:hover {
     background-color: #0056b3;
   }
+
+  @media (max-width: 768px) {
+    padding: 6px 12px;
+  }
 `;
 
 export const LinkedinIcon = styled.div`
   font-size: 1.5rem;
   color: #0077b5;
   cursor: pointer;
-   position: relative; /* Usando position relative */
-  top: 48px; /* Altere este valor para descer mais ou menos o ícone */
-  margin-top: auto; /* Força o ícone a ser empurrado para baixo */
+  position: relative;
+  top: 48px;
+  margin-top: auto;
 
   &:hover {
     color: #005582;
   }
+
+   @media (max-width: 768px) {
+    position: absolute;
+    top: 40px; /* Posiciona o ícone no topo */
+    left: 30px; /* Posiciona o ícone à esquerda */
+    transform: translate(-10%, -10%); /* Ajusta a posição para um alinhamento melhor */
+    font-size: 2.3rem; /* Ajuste o tamanho do ícone para telas menores */
+  }
 `;
 
-// Modal Styles
 export const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6); /* A modal cobrirá toda a tela */
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Para garantir que a modal fique acima de tudo */
+  z-index: 1000;
 `;
 
 export const ModalContent = styled.div`
   background: #fff;
-  padding: 30px 40px; /* Maior espaçamento interno */
+  padding: 30px 40px;
   border-radius: 15px;
   text-align: justify;
   max-width: 500px;
   width: 100%;
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3); /* Sombra mais leve */
-  font-family: 'Arial', sans-serif; /* Tipografia mais elegante */
-  line-height: 1.6; /* Aumenta o espaçamento entre as linhas para melhorar a legibilidade */
-
-
-  z-index: 1001; /* Modal acima da overlay */
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  z-index: 1001;
 
   h3 {
-    margin-bottom: 20px; /* Mais espaçamento abaixo do título */
-    font-size: 1.8rem; /* Aumenta o tamanho da fonte do título */
+    margin-bottom: 20px;
+    font-size: 1.8rem;
     color: #333;
   }
 
   p {
-    font-size: 1.1rem; /* Tamanho da fonte do parágrafo */
-    color: #555; /* Cor mais suave para o texto */
-    margin-bottom: 20px; /* Espaçamento entre o texto e o botão */
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 20px;
   }
 
   button {
@@ -151,6 +200,19 @@ export const ModalContent = styled.div`
 
     &:hover {
       background-color: #0056b3;
+    }
+  }
+
+@media (max-width: 768px) {
+    max-width: 90%; /* Garantir que o modal não corte as bordas da tela em dispositivos móveis */
+    padding: 20px 30px; /* Diminuir o padding em telas menores */
+
+    h3 {
+      font-size: 1.5rem;
+    }
+
+    p {
+      font-size: 1rem;
     }
   }
 `;

@@ -12,7 +12,7 @@ const Header = () => {
       </a>
       <Title>Lista de Ramais</Title>
       <Version href={commitsUrl} target="_blank" rel="noopener noreferrer">
-        Versão 2.0
+        Versão 3.1
       </Version>
     </HeaderContainer>
   );
