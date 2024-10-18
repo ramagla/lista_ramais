@@ -31,6 +31,8 @@ const RamaisFromExcel: React.FC = () => {
             cargo: row[3],
             email: row[4],
             foto: row[5],
+            linkedin: row[6],  // Nova coluna para LinkedIn
+            descricao: row[7], // Nova coluna para Descrição
           }));
 
           setData(employeeData);
@@ -81,6 +83,9 @@ const RamaisFromExcel: React.FC = () => {
             cargo={employee.cargo}
             email={employee.email}
             foto={employee.foto}
+            linkedin={employee.linkedin}  // Passando o LinkedIn para o EmployeeCard
+            descricao={employee.descricao}  // Passando a Descrição para o EmployeeCard
+            
           />
         ))
       ) : (

@@ -1,12 +1,15 @@
 import { HeaderContainer, Title, Logo, Version } from "./styles";
 
 const Header = () => {
-  // Supondo que você tenha uma URL para os commits
   const commitsUrl = "https://github.com/ramagla/lista_ramais/commits";
+  const websiteUrl = "https://www.brasmol.com.br";  // URL do site
 
   return (
     <HeaderContainer>
-      <Logo src={require("../../assets/logo.png")} alt="Logo Bras-mol" />
+      {/* Torna o logo clicável e redireciona para o site */}
+      <a href={websiteUrl} target="_blank" rel="noopener noreferrer">
+        <Logo src={require("../../assets/logo.png")} alt="Logo Bras-mol" />
+      </a>
       <Title>Lista de Ramais</Title>
       <Version href={commitsUrl} target="_blank" rel="noopener noreferrer">
         Versão 2.0
