@@ -8,6 +8,7 @@ const App: React.FC = () => {
     <>
       <GlobalStyles />
       <RamaisFromCSV />
+      
     </>
   );
 };

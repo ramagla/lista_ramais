@@ -6,7 +6,9 @@ const Footer = () => {
   const authorName = "Rafael de Almeida";
   const portfolioLink = "https://portif-lio-iota-nine.vercel.app/";
 
+  // 🔧 Supressão do aviso do ESLint de dependência ausente
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     fetchLastCommitDate();
   }, []);
 
@@ -19,7 +21,7 @@ const Footer = () => {
       if (data && data.length > 0) {
         const lastCommit = data[0];
         const commitDate = new Date(lastCommit.commit.author.date);
-        console.log("Commit Date:", commitDate); // Verifique a data do commit
+        console.log("Commit Date:", commitDate);
         setLastCommitDate(formatDateTime(commitDate));
       }
     } catch (error) {

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const EmployeeContainer = styled.div`
   display: flex;
@@ -143,7 +143,7 @@ export const LinkedinIcon = styled.div`
     color: #005582;
   }
 
-   @media (max-width: 768px) {
+  @media (max-width: 768px) {
     position: absolute;
     top: 40px; /* Posiciona o ícone no topo */
     left: 30px; /* Posiciona o ícone à esquerda */
@@ -165,6 +165,8 @@ export const ModalOverlay = styled.div`
   z-index: 1000;
 `;
 
+
+
 export const ModalContent = styled.div`
   background: #fff;
   padding: 30px 40px;
@@ -172,6 +174,10 @@ export const ModalContent = styled.div`
   text-align: justify;
   max-width: 500px;
   width: 100%;
+  /* IMPORTANTE: limite de altura e scroll */
+  max-height: 80vh;
+  overflow-y: auto;
+
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
   font-family: 'Arial', sans-serif;
   line-height: 1.6;
@@ -203,9 +209,9 @@ export const ModalContent = styled.div`
     }
   }
 
-@media (max-width: 768px) {
-    max-width: 90%; /* Garantir que o modal não corte as bordas da tela em dispositivos móveis */
-    padding: 20px 30px; /* Diminuir o padding em telas menores */
+  @media (max-width: 768px) {
+    max-width: 90%; 
+    padding: 20px 30px;
 
     h3 {
       font-size: 1.5rem;

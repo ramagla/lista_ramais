@@ -6,6 +6,7 @@ import { Employee } from "../../types";
 import * as XLSX from "xlsx";
 import Header from "../Header";
 import Footer from "../Rodape";
+import Fuse from "fuse.js";
 
 const RamaisFromExcel: React.FC = () => {
   const [data, setData] = useState<Employee[]>([]);
@@ -54,19 +55,15 @@ const RamaisFromExcel: React.FC = () => {
       return;
     }
 
-    const filtered = data.filter((employee) => {
-      const name = employee.name ? employee.name.toLowerCase() : "";
-      const cargo = employee.cargo ? employee.cargo.toLowerCase() : "";
-      const setor = employee.setor ? employee.setor.toLowerCase() : "";
-
-      return (
-        name.includes(term.toLowerCase()) ||
-        cargo.includes(term.toLowerCase()) ||
-        setor.includes(term.toLowerCase())
-      );
+    const fuse = new Fuse(data, {
+      keys: ["name", "cargo", "setor"],
+      threshold: 0.3, // mais baixo = mais preciso, mais alto = mais tolerante
     });
 
-    setFilteredData(filtered);
+    const results = fuse.search(term);
+    const matched = results.map(result => result.item);
+
+    setFilteredData(matched);
   };
 
   return (
@@ -83,13 +80,12 @@ const RamaisFromExcel: React.FC = () => {
             cargo={employee.cargo}
             email={employee.email}
             foto={employee.foto}
-            linkedin={employee.linkedin}  // Passando o LinkedIn para o EmployeeCard
-            descricao={employee.descricao}  // Passando a Descrição para o EmployeeCard
-            
+            linkedin={employee.linkedin}
+            descricao={employee.descricao}
           />
         ))
       ) : (
-        <p>Não encontrado..</p>
+        <p>Não encontrado...</p>
       )}
       <Footer />
     </Container>
